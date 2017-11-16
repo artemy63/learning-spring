@@ -18,6 +18,7 @@ import java.util.Map;
 public class ExceptionHandlingV1Controller {
 
     @RequestMapping("/give-me-success")
+    @ResponseBody
     public SuccessResponseDTO giveMeSuccess() {
         return SuccessResponseDTO.builder()
                 .name("give-me-success")
@@ -28,10 +29,11 @@ public class ExceptionHandlingV1Controller {
                 .build();
     }
 
-    @RequestMapping("/give-me-unhandled-exception")
-    public SuccessResponseDTO giveMeUnHandledException(@RequestParam String isThrowException) {
+    @RequestMapping("/give-me-handled-exception")
+    @ResponseBody
+    public SuccessResponseDTO giveMeHandledException(@RequestParam(required = false) String isThrowException) {
         if(Boolean.parseBoolean(isThrowException)) {
-            throw new UnHandledException("ExceptionHandlingV1Controller#UnHandledException occurs ::", "ExceptionHandlingV1Controller should not handle it!");
+            throw new HandledException("ExceptionHandlingV1Controller#HandledException occurs :: ", "ExceptionHandlingV1Controller should handle it!");
         }
         return SuccessResponseDTO.builder()
                 .name("give-me-success")
@@ -43,9 +45,10 @@ public class ExceptionHandlingV1Controller {
     }
 
     @RequestMapping("/give-me-unhandled-exception")
-    public SuccessResponseDTO giveMeHandledException(@RequestParam String isThrowException) {
+    @ResponseBody
+    public SuccessResponseDTO giveMeUnHandledException(@RequestParam(required = false) String isThrowException) {
         if(Boolean.parseBoolean(isThrowException)) {
-            throw new HandledException("ExceptionHandlingV1Controller#HandledException occurs :: ", "ExceptionHandlingV1Controller should handle it!");
+            throw new UnHandledException("ExceptionHandlingV1Controller#UnHandledException occurs ::", "ExceptionHandlingV1Controller should not handle it!");
         }
         return SuccessResponseDTO.builder()
                 .name("give-me-success")
