@@ -4,7 +4,6 @@ package org.artemy63.exceptionhandling.exception;
  * Created by artemyev on 16.11.2017.
  */
 public class BaseException extends RuntimeException {
-
     private String property;
 
     public BaseException() {
